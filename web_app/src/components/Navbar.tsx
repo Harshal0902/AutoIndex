@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Bot, Menu, X, Bell, Settings } from 'lucide-react';
+import { Bot, Menu, X, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useWallet } from '@/hooks/useWallet';
 
 const navItems = [
     { path: '/', label: 'Home' },
@@ -15,6 +16,7 @@ const navItems = [
 const Navbar = () => {
     const pathname = usePathname();
     const [mobileOpen, setMobileOpen] = useState(false);
+    const wallet = useWallet();
 
     return (
         <nav className='z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl'>
@@ -39,15 +41,28 @@ const Navbar = () => {
                         <span className='h-1.5 w-1.5 rounded-full bg-success animate-pulse' />
                         Agent Active
                     </span>
-                    <span className='text-xs text-muted-foreground font-mono'>
-                        0x7a3...3f5E
-                    </span>
-                    <button className='p-1.5 rounded-lg hover:bg-secondary/50 transition-colors text-muted-foreground'>
-                        <Bell className='h-4 w-4' />
-                    </button>
-                    <button className='p-1.5 rounded-lg hover:bg-secondary/50 transition-colors text-muted-foreground'>
-                        <Settings className='h-4 w-4' />
-                    </button>
+                    {wallet.address ? (
+                        <div className='flex items-center gap-2'>
+                            <div className='text-xs font-mono bg-secondary/50 px-3 py-1.5 rounded-lg'>
+                                {wallet.address.slice(0, 6)}…{wallet.address.slice(-4)}
+                            </div>
+                            <Button variant='destructive'>
+                                Disconnect Wallet
+                            </Button>
+                        </div>
+                    ) : (
+                        <Button
+                            size='sm'
+                            variant='hero'
+                            disabled={wallet.connecting}
+                            onClick={wallet.connect}
+                        >
+                            {wallet.connecting && (
+                                <Loader2 className='h-3 w-3 animate-spin mr-1.5' />
+                            )}
+                            Connect Wallet
+                        </Button>
+                    )}
                 </div>
 
                 <button
