@@ -65,7 +65,7 @@ Funds deposited into the vault are allocated into two strategies:
 
 # How It Works
 
-### Step 1 — User Deposit
+### Step 1 - User Deposit
 
 Users deposit funds into the AutoIndex vault.
 
@@ -75,7 +75,7 @@ Example:
 Deposit: 1000 USDC
 ```
 
-### Step 2 — AI Portfolio Creation
+### Step 2 - AI Portfolio Creation
 
 The agent generates a diversified index portfolio.
 
@@ -90,7 +90,7 @@ Example allocation:
 | ARB   | 10%    |
 | USDC  | 15%    |
 
-### Step 3 — Cross-Chain Execution
+### Step 3 - Cross-Chain Execution
 
 When assets exist on different chains, the agent uses **LI.FI** to:
 
@@ -98,7 +98,7 @@ When assets exist on different chains, the agent uses **LI.FI** to:
 - swap tokens
 - route transactions optimally
 
-### Step 4 — Continuous Optimization
+### Step 4 - Continuous Optimization
 
 The agent runs an execution loop:
 
